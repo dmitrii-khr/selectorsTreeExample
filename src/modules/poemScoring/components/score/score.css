@@ -1,0 +1,10 @@
+.score{
+
+  margin-left: 60px;
+
+}
+
+.score span{
+  color: lime;
+  font-size: 50px;
+}
