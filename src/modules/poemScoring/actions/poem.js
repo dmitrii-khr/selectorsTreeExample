@@ -6,8 +6,8 @@ export function poemTextChange(text) {
   return function (dispatch, getState) {
     const analyseResult = logic.analysePoem(text);
 
-    const gState = getState();
-    const scoringStateOld =  gState.get('poemScoring');
+    const globalState = getState();
+    const scoringStateOld =  globalState.get('poemScoring');
     const scoringStateNew = logic.onType(scoringStateOld, analyseResult);
     dispatch({
       type: at.POEM_TYPE,
@@ -15,7 +15,7 @@ export function poemTextChange(text) {
     });
 
     if (analyseResult.censoredWords) {
-      const userName = gState.getIn(['app', 'account', 'name']);
+      const userName = globalState.getIn(['app', 'account', 'name']);
       const message = `${userName}, avoid of using word ${analyseResult.censoredWords}, please!`;
       dispatch({
         type: appAt.SHOW_MESSAGE,
