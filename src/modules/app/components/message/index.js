@@ -10,7 +10,7 @@ class Message extends Component {
     if (this.props.messageText) {
       setTimeout(() => {
         this.props.actions.hideMessage();
-      }, 2000);
+      }, 4000);
     }
   }
 
