@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions  from '../../actions/poem';
+import selectors from '../../selectors';
 
 class Poem extends Component {
   handleChange=(event) => {
@@ -34,7 +35,7 @@ class Poem extends Component {
 }
 
 function mapStateToProps(state, ownprops) {
-  const text = state.getIn(['poemScoring', 'poemText']);
+  const text = selectors.flat.poemText(state);
 
   return {
     text

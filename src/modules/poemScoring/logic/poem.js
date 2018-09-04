@@ -1,17 +1,33 @@
 import obscenseWords from '../constants/obsceneWords';
+import selectors from '../selectors';
+import message from '../../app/logic/message';
+import appSelectors from '../../app/selectors';
+import Immutable from 'immutable';
 
 export default {
-  onType(state, text) {
+  onType(gState, text) {
     const { reductedText, censoredWords } = this.redactText(text);
 
-    const newState = state
+    const poemState  = selectors.root(gState) || Immutable.Map();
+
+    const newPoemState = poemState   // module state mutating
       .set('poemText', reductedText)
       .set('score', this.calcScore(reductedText));
 
-    return {
-      newState,
-      censoredWords
-    };
+    let newGState =  selectors.root.replace(gState, newPoemState);
+
+    if (censoredWords) {   // message
+      const userName = appSelectors.flat.userName(gState);
+      const messageText = `${userName}, avoid of using word ${censoredWords}, please!`;
+      newGState = message.showMessage(newGState, messageText);
+    }
+
+    return newGState;
+  },
+
+  onNewPoem(gState) {
+    const newState = selectors.root.replace(gState, null);
+    return message.showMessage(newState, 'You can begin a new poem now!');
   },
 
 

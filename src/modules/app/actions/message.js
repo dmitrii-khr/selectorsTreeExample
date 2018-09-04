@@ -1,10 +1,10 @@
-import at from '../constants/actionTypes';
+import selectors from '../selectors';
 
 export function hideMessage() {
-  return function (dispatch, getstate) {
+  return function (dispatch, getState) {
     dispatch({
-      type: at.HIDE_MESSAGE
-
+      type: 'Hide message',
+      setState: selectors.message.replace(getState(), null)
     });
   };
 }

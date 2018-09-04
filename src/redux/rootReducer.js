@@ -1,5 +1,15 @@
 import {  combineReducers } from 'redux-immutable';
 import app from '../modules/app/reducers';
-import poemScoring from '../modules/poemScoring/reducers';
 
-export default combineReducers({ app, poemScoring });
+const combinedReducers = combineReducers({ app });
+
+function setStateReducer(state, action) {
+  if (action.setState) {
+    return action.setState;
+  } else {
+    return combinedReducers(state, action);
+  }
+}
+
+
+export default setStateReducer;

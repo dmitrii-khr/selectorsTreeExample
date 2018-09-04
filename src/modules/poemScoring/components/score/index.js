@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './score.css';
 import { connect } from 'react-redux';
+import selectors from '../../selectors';
 
 class Score extends Component {
   render() {
@@ -23,7 +24,7 @@ class Score extends Component {
 }
 
 function mapStateToProps(state, ownprops) {
-  const score = state.getIn(['poemScoring', 'score']);
+  const score = selectors.score(state);
 
   return {
     score
