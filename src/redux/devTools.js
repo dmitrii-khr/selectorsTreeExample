@@ -5,7 +5,7 @@ import Inspector from 'redux-devtools-inspector';
 import DockMonitor from 'redux-devtools-dock-monitor';
 
 export default createDevTools(
-  <DockMonitor toggleVisibilityKey='ctrl-h' changePositionKey='ctrl-q' >
-    <Inspector />
+  <DockMonitor toggleVisibilityKey='ctrl-h' changePositionKey='ctrl-q'>
+    <Inspector  supportImmutable/>
   </DockMonitor>
 );

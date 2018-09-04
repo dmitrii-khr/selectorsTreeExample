@@ -4,19 +4,18 @@ import appAt from '../../app/constants/actionTypes';
 
 export function poemTextChange(text) {
   return function (dispatch, getState) {
-    const analyseResult = logic.analysePoem(text);
-
     const globalState = getState();
-    const scoringStateOld =  globalState.get('poemScoring');
-    const scoringStateNew = logic.onType(scoringStateOld, analyseResult);
-    dispatch({
+    const scoringStateOld =  globalState.get('poemScoring'); // Получаем из глобального стейта нужный нам участок
+    const { newState, censoredWords }  = logic.onType(scoringStateOld, text);
+
+    dispatch({  // отправляем в редьюсер на установку обновленного стейта
       type: at.POEM_TYPE,
-      payload: scoringStateNew
+      payload: newState
     });
 
-    if (analyseResult.censoredWords) {
+    if (censoredWords) { // Если были цензурированы слова, то показываем сообщение
       const userName = globalState.getIn(['app', 'account', 'name']);
-      const message = `${userName}, avoid of using word ${analyseResult.censoredWords}, please!`;
+      const message = `${userName}, avoid of using word ${censoredWords}, please!`;
       dispatch({
         type: appAt.SHOW_MESSAGE,
         payload: message
