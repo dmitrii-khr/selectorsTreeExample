@@ -1,4 +1,4 @@
-import extendSelectors from '../../app/extendSelectors';
+import extendSelectors from 'immutable-selectors';
 
 const selectors = {
   poemText:{},

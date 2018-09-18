@@ -14,7 +14,7 @@ export function newPoem() {
   return function (dispatch, getState) {
     dispatch({
       type: 'New poem',
-      setState: logic.onNewPoem(getState)
+      setState: logic.onNewPoem(getState())
     });
   };
 }

@@ -1,4 +1,4 @@
-import extendSelectors from './extendSelectors';
+import extendSelectors from 'immutable-selectors';
 
 const selectors = {
   account:{
