@@ -1,15 +1,12 @@
-import Immutable from 'immutable';
+import initialState from './initialState';
 
-function setStateReducer(state, action) {
-  if (action.type === '@@INIT') {
-    return Immutable.Map();
-  }
+function setStateReducer(state = initialState, action) {
   if (action.setState) {
     return action.setState;
   } else {
-    console.error('Action has not "setState" property');
+    return state;
+    // return combinedReducers(state, action); //
   }
 }
-
 
 export default setStateReducer;

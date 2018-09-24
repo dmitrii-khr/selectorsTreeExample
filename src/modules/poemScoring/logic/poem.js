@@ -8,15 +8,15 @@ export default {
   onType(gState, text) {
     const { reductedText, censoredWords } = this.redactText(text);
 
-    const poemState  = selectors.root(gState) || Immutable.Map();
+    const poemState  = selectors.root(gState) || Immutable.Map(); // извлечение нужного куска стейта
 
-    const newPoemState = poemState   // module state mutating
+    const newPoemState = poemState  // мутация
       .set('poemText', reductedText)
       .set('score', this.calcScore(reductedText));
 
-    let newGState =  selectors.root.replace(gState, newPoemState);
+    let newGState =  selectors.root.replace(gState, newPoemState);  // создание нового стейта
 
-    if (censoredWords) {   // message
+    if (censoredWords) {   // если требуется, стейт дополняем сообщением
       const userName = appSelectors.flat.userName(gState);
       const messageText = `${userName}, avoid of using word ${censoredWords}, please!`;
       newGState = message.showMessage(newGState, messageText);

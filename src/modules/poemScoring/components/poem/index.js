@@ -35,10 +35,8 @@ class Poem extends Component {
 }
 
 function mapStateToProps(state, ownprops) {
-  const text = selectors.flat.poemText(state) || '';
-
   return {
-    text
+    text:selectors.poemText(state) || ''
   };
 }
 
